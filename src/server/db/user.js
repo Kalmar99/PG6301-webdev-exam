@@ -9,7 +9,7 @@ const createUser = (username,password) => {
         password: password,
         coins: 1000
     }
-    users.set(username,user)
+    return users.set(username,user)
 }
 
 const getUser = (username) => {

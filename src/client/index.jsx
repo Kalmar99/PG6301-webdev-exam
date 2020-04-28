@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Home} from './Home'
 import {Login} from './login'
+import {Register} from './register'
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
@@ -27,6 +28,9 @@ export class App extends React.Component {
                     <Switch>
                         <Route exact path="/login"
                                 render={props => <Login {...props}
+                                    setLoginStatus={this.setLoginStatus} />} />
+                        <Route exact path="/register"
+                                render={props => <Register {...props}
                                     setLoginStatus={this.setLoginStatus} />} />
                         <Route exact path="/"
                             render={props => <Home {...props}
