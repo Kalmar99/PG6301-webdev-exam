@@ -28,6 +28,7 @@ export class Header extends React.Component {
             payload = await response.json()
         } catch(error) {
             this.setState({error})
+            return;
         }
 
         if(response.status == 401) {
@@ -43,20 +44,41 @@ export class Header extends React.Component {
         }
         
         this.setState({user: payload,error: null})
+        console.log("USER: " + payload.username)
         this.props.setLoginStatus(payload.username)
         return;
     }
 
     render() {
+
+        
         return(
             <Container>
-                <Row>
+                <Row className="header">
                     <Col lg={3}><h1>Catch'em All</h1></Col>
-                    <Col lg={1}><Link to="/">Home</Link></Col>
-                    {this.props.username ? <Col lg={2}><Link to="/collection">My Collection</Link></Col> : <Col lg={1}><Link to="/login">Log In</Link></Col>}
+                    
+                    <Col lg={1} className="header-btn my-auto">
+                        <Link to="/">Home</Link>
+                    </Col>
+
+                    <Col lg={2} className="header-btn my-auto">
+                        <Link to="/collection">My Collection</Link>
+                    </Col>
+                    <Col lg={1} className="header-btn my-auto">
+                        <Link to="/shop">Shop</Link>
+                    </Col>
+                    
+                    {this.props.username != false ? 
+                        <Col lg={1} className="header-btn my-auto">
+                            <Link to="/">Logout</Link>
+                        </Col> : 
+                        <Col lg={1} className="header-btn my-auto">
+                            <Link to="/login">Log In</Link>
+                        </Col>}
+    
                 </Row>
                 
-                {this.state.user !== null && <Row>
+                {this.state.user !== null && <Row className="header-bar">
                     <Col lg={3}>Username: {this.state.user.username}</Col>
                     <Col lg={3}>Coins: {this.state.user.coins}</Col>
                 </Row>}

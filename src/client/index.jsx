@@ -6,6 +6,7 @@ import {Login} from './login'
 import {Register} from './register'
 import {Pokemon} from './pokemon'
 import {Collection} from './collection'
+import {Shop} from './shop'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -22,6 +23,38 @@ export class App extends React.Component {
             error: null
         }
     }
+ 
+    componentDidMount() {
+        this.fetchUser()
+    }
+
+    fetchUser = async () => {
+        let response; 
+        let payload;
+        
+        try {
+            response = await fetch('/api/user')
+            payload = await response.json()
+        } catch(error) {
+            this.setState({error})
+            return;
+        }
+
+        if(response.status == 401) {
+            this.setState({error: 'You are not logged in',username: null,user: null})
+            this.props.setLoginStatus(false)
+            return;
+        }
+
+        if(response.status !== 200) {
+            this.setState({error: 'Something went wrong, code: ' + response.status,username: null,user: null})
+            this.setLoginStatus(false)
+            return;
+        }
+        
+        this.setLoginStatus(payload.username)
+        return;
+    }
 
     setLoginStatus = (username) => {
         this.setState({username:username});
@@ -31,14 +64,19 @@ export class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <Container>
-                    <Row>
+                <Container className="h-100">
+                    <Row className="h-75">
                         <Switch>
                             <Route exact path="/pokemon"
                                     render={props => <Pokemon {...props}
                                         setLoginStatus={this.setLoginStatus} />} />
+                            <Route exact path="/shop"
+                                    render={props => <Shop {...props}
+                                        username={this.state.username}
+                                        setLoginStatus={this.setLoginStatus} />} />
                             <Route exact path="/collection"
                                     render={props => <Collection {...props}
+                                        username={this.state.username}
                                         setLoginStatus={this.setLoginStatus} />} />
                             <Route exact path="/login"
                                     render={props => <Login {...props}

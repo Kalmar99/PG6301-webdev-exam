@@ -1,3 +1,5 @@
+const pokemonDao = require('./pokemon')
+
 const users = new Map()
 let counter = 0;
 
@@ -8,6 +10,7 @@ const createUser = (username,password) => {
         username: username,
         password: password,
         coins: 1000,
+        loot: [],
         collection: []
     }
     return users.set(username,user)
@@ -29,21 +32,41 @@ const verifyUser = (username,password) => {
 
 }
 
+const millFromCollection = (username,pokemon) => {
+    
+    const user = getUser(username)
+    
+    console.log(user)
+    const pokemonObject = pokemonDao.getPokemon(pokemon)
+
+    removeFromCollection(username,pokemonObject)
+    user.coins += pokemonObject.millworth;
+    console.log(user)
+
+}
+
 const removeFromCollection = (username,pokemon) => {
     
     const user = getUser(username)
+    
+    const position = user.collection.indexOf(pokemon);
 
-    //Check if pokemon alrady exists in collection
-    user.collection.forEach((pokemonInC) => {
-        if(pokemonInC.name === pokemon.name) {
-            pokemonInC.count--;
-            return;
+    //Does the pokemon exist?
+    for(let i = 0; i < user.collection.length; i++) {
+        if(user.collection[i].name === pokemon.name) {
+            if(user.collection[i].count > 1) {
+                user.collection[i].count--;
+                return;
+            } else {
+                user.collection.splice(position,1)
+                return;
+            }
+            
         }
-    })
-
-    const position = array.indexOf(pokemon);
+    }
+ 
     user.collection.splice(position,1);
-    return;
+    return true;  
 }
 
 const addToCollection = (username,pokemon) => {
@@ -51,15 +74,49 @@ const addToCollection = (username,pokemon) => {
     const user = getUser(username)
 
     //Check if pokemon already exists in collection
-    user.collection.forEach((pokemonInC) => {
-        if(pokemonInC.name === pokemon.name) {
-            pokemonInC.count++;
+
+    for(let i = 0; i < user.collection.length; i++) {
+        if(user.collection[i].name === pokemon.name) {
+            user.collection[i].count++;
             return;
         }
-    })
+    }
 
     user.collection.push(pokemon)
     return;
 }
 
-module.exports = {createUser,getUser,verifyUser,addToCollection,removeFromCollection}
+
+const addLoot = (user,box) => {
+        
+    for(let i = 0; i < user.loot.length; i++) {
+        if(user.loot[i].name === box.name) {
+            user.loot[i].count++;
+            return;
+        }
+    }
+
+    user.loot.push(box)
+    return;
+}
+
+const removeLoot = (user,box) => {
+
+    for(let i = 0; i < user.loot.length; i++) {
+        if(user.loot[i].name === box.name) {
+            
+            if(user.loot[i].count > 1) {
+                user.loot[i].count--;
+            } else {
+                user.loot[i].splice(i,1)
+            }
+            user.loot.splice(i,1)
+            return;
+        }
+    }
+    const pos = user.loot.indefOf(box)
+    user.loot.splice(pos,1)
+}
+ 
+
+module.exports = {createUser,getUser,verifyUser,addToCollection,removeFromCollection,millFromCollection,removeLoot,addLoot}

@@ -1,2 +1,17 @@
 @import URL('./bootstrap/bootstrap.min.css');
 @import URL('./collection.css');
+@import URL('./header.css');
+
+
+.page {
+    background-color:white;
+}
+
+body,html {
+    background-color: #d9d9d9;
+    height:100%;
+}
+
+#root {
+    height:100% !important;
+}

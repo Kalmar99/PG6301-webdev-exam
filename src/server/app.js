@@ -13,7 +13,7 @@ const userDb = require('./db/user')
 
 const authRoutes = require('./routes/auth-routes')
 const pokemonRoutes = require('./routes/pokemon-routes')
-
+const lootRoutes = require('./routes/loot-routes')
 
 const app = express();
 
@@ -65,6 +65,7 @@ app.use(passport.session());
 /* Routes  */
 app.use('/api',authRoutes)
 app.use('/api',pokemonRoutes)
+app.use('/api',lootRoutes)
 
 app.use((req, res, next) => {
     res.sendFile(path.resolve(__dirname, '..', '..', 'public', 'index.html'));

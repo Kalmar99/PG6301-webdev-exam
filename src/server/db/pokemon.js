@@ -1,3 +1,5 @@
+const userDao = require('./user')
+
 
 const pokemons = new Map()
 let counter = 0;
@@ -23,7 +25,6 @@ const getPokemon = (name) => {
 const getAllPokemon = () => {
     return Array.from(pokemons.values())
 }
-
 
 const init = () => {
     createPokemon("Pikachu","Electric",1000,"./img/pikachu.png","Whenever Pikachu comes across something new, it blasts it with a jolt of electricity. If you come across a blackened berry, it's evidence that this Pokémon mistook the intensity of its charge.")

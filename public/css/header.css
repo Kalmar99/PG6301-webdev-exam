@@ -1,0 +1,27 @@
+
+
+.header {
+    background-color: #4287f5;
+}
+
+.header-btn {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.header-btn a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600; 
+
+}
+
+.header-btn:hover {
+    background-color: #5798ff;
+}
+
+.header-bar {
+    background-color: #0f408c;
+    color: white;
+}

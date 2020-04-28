@@ -58,16 +58,16 @@ export class Home extends React.Component {
     render() {
         console.log(this.props.username)
         return (
-            <Container>
-                <Row>
+            <Container className="page mt-3 h-100">
+                <Row className="mb-3">
                     <Header  setLoginStatus={this.props.setLoginStatus} username={this.props.username}></Header>
                 </Row>
                 <Row>
                     <Col>{this.state.error != null && <p>{this.state.error.toString()}</p>}</Col>
                 </Row>
-                <Row>
+                <Row className="mt-2">
                     <Container>
-                        <Row>
+                        <Row className="mb-3">
                             <Col><h3>All pokemons</h3></Col>
                         </Row>
                         <Row className="pokemon-collection">
