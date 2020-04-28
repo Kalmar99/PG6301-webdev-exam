@@ -9,8 +9,11 @@ const passport = require('passport')
 const session = require('express-session')
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
-const routes = require('./routes');
-const db = require('./db')
+const userDb = require('./db/user')
+
+const authRoutes = require('./routes/auth-routes')
+const pokemonRoutes = require('./routes/pokemon-routes')
+
 
 const app = express();
 
@@ -31,13 +34,13 @@ passport.use(new LocalStrategy (
         passwordField: 'password'
     },
     function(username,password,done) {
-        const verified = db.verifyUser(username,password)
+        const verified = userDb.verifyUser(username,password)
 
         if(!verified) {
             return done(null,false,{message: 'Invalid Username / Password'})
         }
 
-        const user = db.getUser(username);
+        const user = userDb.getUser(username);
         return done(null,user)
     }
 ))
@@ -47,7 +50,7 @@ passport.serializeUser(function(user,done){
 })
 
 passport.deserializeUser(function(username,done) {
-    const user = db.getUser(username)
+    const user = userDb.getUser(username)
     
     if(user) {
         done(null,user)
@@ -59,7 +62,9 @@ passport.deserializeUser(function(username,done) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/',routes)
+/* Routes  */
+app.use('/api',authRoutes)
+app.use('/api',pokemonRoutes)
 
 app.use((req, res, next) => {
     res.sendFile(path.resolve(__dirname, '..', '..', 'public', 'index.html'));

@@ -1,5 +1,3 @@
-
-
 const users = new Map()
 let counter = 0;
 
@@ -8,7 +6,8 @@ const createUser = (username,password) => {
     const user = {
         id: (counter++),
         username: username,
-        password: password
+        password: password,
+        coins: 1000
     }
     users.set(username,user)
 }
@@ -28,3 +27,5 @@ const verifyUser = (username,password) => {
     }
 
 }
+
+module.exports = {createUser,getUser,verifyUser}
