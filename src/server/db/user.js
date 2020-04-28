@@ -7,7 +7,8 @@ const createUser = (username,password) => {
         id: (counter++),
         username: username,
         password: password,
-        coins: 1000
+        coins: 1000,
+        collection: []
     }
     return users.set(username,user)
 }
@@ -28,4 +29,37 @@ const verifyUser = (username,password) => {
 
 }
 
-module.exports = {createUser,getUser,verifyUser}
+const removeFromCollection = (username,pokemon) => {
+    
+    const user = getUser(username)
+
+    //Check if pokemon alrady exists in collection
+    user.collection.forEach((pokemonInC) => {
+        if(pokemonInC.name === pokemon.name) {
+            pokemonInC.count--;
+            return;
+        }
+    })
+
+    const position = array.indexOf(pokemon);
+    user.collection.splice(position,1);
+    return;
+}
+
+const addToCollection = (username,pokemon) => {
+    
+    const user = getUser(username)
+
+    //Check if pokemon already exists in collection
+    user.collection.forEach((pokemonInC) => {
+        if(pokemonInC.name === pokemon.name) {
+            pokemonInC.count++;
+            return;
+        }
+    })
+
+    user.collection.push(pokemon)
+    return;
+}
+
+module.exports = {createUser,getUser,verifyUser,addToCollection,removeFromCollection}

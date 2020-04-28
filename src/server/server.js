@@ -8,4 +8,6 @@ app.listen(port,() => {
     console.log('Server started on port: ' + port)
     pokemon.init()
     user.createUser("user","123")
+    const poke = pokemon.getPokemon("Pikachu")
+    user.addToCollection("user",poke)
 });

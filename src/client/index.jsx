@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import {Home} from './Home'
 import {Login} from './login'
 import {Register} from './register'
 import {Pokemon} from './pokemon'
-import {Header} from './header'
+import {Collection} from './collection'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -35,6 +36,9 @@ export class App extends React.Component {
                         <Switch>
                             <Route exact path="/pokemon"
                                     render={props => <Pokemon {...props}
+                                        setLoginStatus={this.setLoginStatus} />} />
+                            <Route exact path="/collection"
+                                    render={props => <Collection {...props}
                                         setLoginStatus={this.setLoginStatus} />} />
                             <Route exact path="/login"
                                     render={props => <Login {...props}

@@ -7,6 +7,7 @@ const createPokemon = (name,type,millworth,img,description) => {
         id: (counter++),
         img: img,
         name: name,
+        count: 1,
         type: type,
         millworth: millworth,
         description: description

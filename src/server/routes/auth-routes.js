@@ -46,4 +46,15 @@ router.get('/user',(req,res) => {
     res.status(401).send()
 })
 
+router.get('/user/collection',async (req,res) => {
+    
+    if(req.user) {
+        res.json({collection: req.user.collection})
+        return;
+    } else {
+        res.status(401).send()
+        return;
+    }
+})
+
 module.exports = router;

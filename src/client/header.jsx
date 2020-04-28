@@ -53,7 +53,7 @@ export class Header extends React.Component {
                 <Row>
                     <Col lg={3}><h1>Catch'em All</h1></Col>
                     <Col lg={1}><Link to="/">Home</Link></Col>
-                    {this.props.username ? <Col lg={2}><Link to="/">My Collection</Link></Col> : <Col lg={1}><Link to="/login">Log In</Link></Col>}
+                    {this.props.username ? <Col lg={2}><Link to="/collection">My Collection</Link></Col> : <Col lg={1}><Link to="/login">Log In</Link></Col>}
                 </Row>
                 
                 {this.state.user !== null && <Row>
