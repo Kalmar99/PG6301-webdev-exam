@@ -14,6 +14,8 @@ import Col from 'react-bootstrap/Col'
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
+
+
 export class App extends React.Component {
     constructor(props) {
         super(props)
@@ -24,11 +26,11 @@ export class App extends React.Component {
         }
     }
  
-    componentDidMount() {
-        this.fetchUser()
-    }
+    setLoginStatus = (username) => {
+        this.setState({username: username}); 
+    };
 
-    fetchUser = async () => {
+    fetchUser = async (done) => {
         let response; 
         let payload;
         
@@ -39,27 +41,21 @@ export class App extends React.Component {
             this.setState({error})
             return;
         }
-
+    
         if(response.status == 401) {
             this.setState({error: 'You are not logged in',username: null,user: null})
             this.props.setLoginStatus(false)
             return;
         }
-
+    
         if(response.status !== 200) {
             this.setState({error: 'Something went wrong, code: ' + response.status,username: null,user: null})
-            this.setLoginStatus(false)
             return;
         }
         
-        this.setLoginStatus(payload.username)
-        return;
+        return done(payload);
     }
-
-    setLoginStatus = (username) => {
-        this.setState({username:username});
-        
-    };
+    
 
     render() {
         return (
@@ -72,11 +68,13 @@ export class App extends React.Component {
                                         setLoginStatus={this.setLoginStatus} />} />
                             <Route exact path="/shop"
                                     render={props => <Shop {...props}
+                                        fetchUser={this.fetchUser}
                                         username={this.state.username}
                                         setLoginStatus={this.setLoginStatus} />} />
                             <Route exact path="/collection"
                                     render={props => <Collection {...props}
                                         username={this.state.username}
+                                        fetchUser={this.fetchUser}
                                         setLoginStatus={this.setLoginStatus} />} />
                             <Route exact path="/login"
                                     render={props => <Login {...props}

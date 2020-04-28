@@ -1,7 +1,7 @@
 @import URL('./bootstrap/bootstrap.min.css');
 @import URL('./collection.css');
 @import URL('./header.css');
-
+@import URL('./types.css');
 
 .page {
     background-color:white;

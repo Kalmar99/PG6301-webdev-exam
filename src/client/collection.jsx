@@ -22,14 +22,13 @@ export class Collection extends React.Component {
         }
     }
 
-    componentWillReceiveProps(props) {
-        console.log("recieved props")
-        this.setState({username: props.username})
-    }
-
     componentDidMount() {
-        this.fetchUserCollection()
-        this.fetchUserLootboxes()
+        
+        this.props.fetchUser((payload) => {
+            this.setState({username: payload.username})
+            this.fetchUserCollection()
+            this.fetchUserLootboxes()
+        })
     }
 
     fetchUserLootboxes = async () => {
@@ -37,7 +36,7 @@ export class Collection extends React.Component {
         let payload;
 
         try {
-            response = await fetch('/api/user/' + this.props.username +'/lootboxes')
+            response = await fetch('/api/user/' + this.state.username +'/lootboxes')
             payload = await response.json()
         } catch(error) {
             this.setState({error})
@@ -89,7 +88,7 @@ export class Collection extends React.Component {
             this.setState({error: 'Somethin went wrong, code: ' + response.status})
             return;
         }
-        console.log(payload)
+
         this.setState({collection: payload.collection,error: null})
         return;
     }
@@ -127,38 +126,70 @@ export class Collection extends React.Component {
 
     }
 
-
-    render() {
+    renderIfLoggedIn = () => {
         return (
-            <Container className="page h-100 mt-3">
-                <Row>
-                    <Header  setLoginStatus={this.props.setLoginStatus} trigger={this.state.trigger} username={this.props.username}></Header>
-                </Row>
+        <Container className="page h-100">
                 <Row>
                     <Col>{this.state.error != null && <Alert variant="danger">{this.state.error.toString()}</Alert>}</Col>
                 </Row>
-                <Row>
-                    <Col><h3>Lootboxes</h3></Col>
+                <Row className="mt-2">
+                   <Col><p>This is your collection, here you can open pokeballs if you have any. You can also mill your pokemon to get more coins.</p></Col>
                 </Row>
-                <Row>
+                <Row className="mt-2">
+                    <Col className=" ml-1 mr-1 collection-header"><h3>Lootboxes</h3></Col>
+                </Row>
+                <Row className="mt-2">
                     {this.state.loot.length >= 1 && this.state.loot.map((loot) => <Col lg={2}>
                         <Col><img className="img-fluid" src={loot.img}></img></Col>
                         <Col><b>{loot.count}x {loot.name}</b></Col>
                         <Col><button>Open</button></Col>
                     </Col>)}
                 </Row>
-                <Row>
-                    <Col><h3>Pokemon</h3></Col>
+                <Row className="mt-3">
+                    <Col className=" ml-1 mr-1 collection-header"><h3>Pokemon</h3></Col>
                 </Row>
-                <Row>
+                <Row className="collection">
                     {this.state.collection.length >= 1 && this.state.collection.map((pokemon) => <Col lg={2} key={pokemon.name}>
                         <Col><img className="img-fluid" src={pokemon.img}></img></Col>
-                        <Col><b>{pokemon.count}x {pokemon.name}</b></Col>
-                        <Col><p>{pokemon.type}</p></Col>
-                        <Col><button onClick={() => this.millPokeMon(pokemon.name)}>Mill</button></Col>
+                        <Col className="text-center"><b>{pokemon.count}x {pokemon.name}</b></Col>
+                        <Col lg={7} className={" mx-auto text-center type " + pokemon.type.toLowerCase()}>{pokemon.type}</Col>
+                        <Col className="mt-1 text-center"><button className="w-75 mill-btn" onClick={() => this.millPokeMon(pokemon.name)}>Mill</button></Col>
                     </Col>)}
                 </Row>
-            </Container>
+            </Container>)
+    }
+
+    renderIfNotLoggedIn = () => {
+        return(
+            <Container className="page h-100 mt-3">
+                <Row>
+                    <Col><h3>You need to be logged in to see this page!</h3></Col>
+                </Row>
+                <Row>
+                    <Col><Link to="/login">Log in</Link></Col>
+                </Row>
+            </Container>)
+    }
+
+    render() {
+
+        let page;
+
+        if(!this.state.username) {
+            page = this.renderIfNotLoggedIn()
+        } else {
+            page = this.renderIfLoggedIn()
+        }
+
+        return (
+           <Container className="page h-100 mt-3"> 
+            <Row>
+                <Header  setLoginStatus={this.props.setLoginStatus} trigger={this.state.trigger} username={this.props.username}></Header>
+            </Row>
+            <Row>
+                {page}
+            </Row>
+           </Container>
         )
     }
 }

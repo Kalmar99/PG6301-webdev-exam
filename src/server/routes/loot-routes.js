@@ -34,6 +34,7 @@ router.post('/lootboxes/:name',(req,res) => {
         const lootbox = lootDao.getLootBox(boxName)
         if(user && lootbox) {
             if(user.coins >= lootbox.cost) {
+                user.coins -= lootbox.cost;
                 userDao.addLoot(user,lootbox)
                 res.status(204).send()
                 return;

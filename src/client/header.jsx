@@ -19,6 +19,26 @@ export class Header extends React.Component {
         this.fetchUser()
     }
 
+    logout = async () => {
+        let response;
+
+        try {
+            response = await fetch('/api/logout',{method: 'POST'})
+        } catch(error) {
+            this.setState({error})
+            return;
+        }
+
+        if(response.status != 204) {
+            this.setState({error: 'Something went wrong, code: ' + response.status})
+            return;
+        }
+
+        this.setState({user: null})
+        this.props.setLoginStatus(false)
+        this.props.history.push('/')
+    }
+
     fetchUser = async () => {
         let response; 
         let payload;
@@ -39,7 +59,6 @@ export class Header extends React.Component {
 
         if(response.status !== 200) {
             this.setState({error: 'Something went wrong, code: ' + response.status,username: null,user: null})
-            this.props.setLoginStatus(false)
             return;
         }
         
@@ -68,9 +87,9 @@ export class Header extends React.Component {
                         <Link to="/shop">Shop</Link>
                     </Col>
                     
-                    {this.props.username != false ? 
+                    {this.props.username ? 
                         <Col lg={1} className="header-btn my-auto">
-                            <Link to="/">Logout</Link>
+                            <button  onClick={this.logout}>Logout</button>
                         </Col> : 
                         <Col lg={1} className="header-btn my-auto">
                             <Link to="/login">Log In</Link>

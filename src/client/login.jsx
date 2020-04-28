@@ -2,7 +2,8 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-
+import {Header} from './header'
+import {Link} from 'react-router-dom'
 
 export class Login extends React.Component {
     constructor(props) {
@@ -60,17 +61,26 @@ export class Login extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container className="page mt-3 h-100">
                 <Row>
-                    <Container>
+                    <Header setLoginStatus={this.props.setLoginStatus} username={this.props.username}></Header>
+                </Row>
+                <Row>
+                    <Container className="mt-3">
                         <Row>
+                            <Col><h2>Log in</h2></Col>
+                        </Row>
+                        <Row className="mt-2">
                             <Col><input onChange={this.onChangeUsername} placeholder='Username' type="text" /></Col>
                         </Row>
-                        <Row>
+                        <Row className="mt-2">
                             <Col><input onChange={this.onChangePassword} placeholder="Password" type="password" /></Col>
                         </Row>
-                        <Row>
+                        <Row className="mt-2">
                             <Col><button onClick={this.login}>Log In</button></Col>
+                        </Row>
+                        <Row>
+                            <Col><p>Dont have an account? <Link to="/register">Register here</Link></p></Col>
                         </Row>
                     </Container>
                 </Row>

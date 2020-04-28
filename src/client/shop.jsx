@@ -15,11 +15,13 @@ export class Shop extends React.Component {
 
         this.state = {
             error: null,
+            username: null,
             lootboxes: []
         }
     }
 
     componentDidMount() {
+
         this.fetchLootBoxes()
     }
 
@@ -84,7 +86,46 @@ export class Shop extends React.Component {
         return;
     }
 
+    renderIfLoggedIn = () => {
+        return (
+            <Container className="page h-100">
+                    <Row className="mt-2 mb-2">
+                        <Col><h2>Pokeballs</h2></Col>
+                    </Row>
+                    <Row className="mt-2">
+                        {this.state.lootboxes.length >= 1 && this.state.lootboxes.map((lootbox) => <Col key={lootbox.name} lg={2}>
+                            <Col><img className="img-fluid" src={lootbox.img}></img></Col>
+                            <Col><b>{lootbox.name}</b></Col>
+                            <Col>Cost: <p>{lootbox.cost} Coins</p></Col>
+                            <Col><button onClick={() => {this.buyLootBox(lootbox.name)}}>Buy</button></Col>
+                        </Col>)}
+                    </Row>
+                </Container>
+        )
+    }
+
+    renderIfLoggedOut = () => {
+        return(
+            <Container className="page h-100 mt-3">
+                <Row>
+                    <Col><h3>You need to be logged in to see this page!</h3></Col>
+                </Row>
+                <Row>
+                    <Col><Link to="/login">Log in</Link></Col>
+                </Row>
+            </Container>)
+    }
+
     render() {
+
+        let page
+
+        if(!this.props.username) {
+            page = this.renderIfLoggedOut();
+        } else { 
+            page = this.renderIfLoggedIn();
+        }
+        
         return (
             <Container className="page h-100 mt-3">
                 <Row>
@@ -93,16 +134,8 @@ export class Shop extends React.Component {
                 <Row>
                     <Col>{this.state.error != null && <Alert variant="danger">{this.state.error.toString()}</Alert>}</Col>
                 </Row>
-                <Row className="mt-2 mb-2">
-                    <Col><h2>Pokeballs</h2></Col>
-                </Row>
-                <Row className="mt-2">
-                    {this.state.lootboxes.length >= 1 && this.state.lootboxes.map((lootbox) => <Col lg={2}>
-                        <Col><img className="img-fluid" src={lootbox.img}></img></Col>
-                        <Col><b>{lootbox.name}</b></Col>
-                        <Col>Cost: <p>{lootbox.cost} Coins</p></Col>
-                        <Col><button onClick={() => {this.buyLootBox(lootbox.name)}}>Buy</button></Col>
-                    </Col>)}
+                <Row>
+                    {page}
                 </Row>
             </Container>
         )
