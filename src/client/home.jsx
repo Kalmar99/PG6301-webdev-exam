@@ -3,6 +3,7 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import {Link} from 'react-router-dom'
  
 import {Header} from './header'
 
@@ -62,17 +63,14 @@ export class Home extends React.Component {
                 <Row>
                     <Container>
                         <Row>
-                            {this.props.username != null && <p> Welcome: {this.props.username}</p>}
+                            <Col><h3>All pokemons</h3></Col>
                         </Row>
                         <Row>
-                            <Col><h3>Catch them all!</h3></Col>
-                        </Row>
-                        <Row>
-                            {this.state.pokemon.map(pokemon => <Col key={pokemon.id} lg={2}>
+                            {this.state.pokemon.map(pokemon => <Col className="collection-item" lg={2}  key={pokemon.id}> <Link to={'/pokemon?n='+pokemon.name}>
                                 <Col lg={12}><img src={pokemon.img} className="img-fluid"></img></Col>
                                 <Col><b>{pokemon.name}</b></Col>
                                 <Col>{pokemon.type}</Col>
-                            </Col>)}
+                            </Link> </Col>)}
                         </Row>
                     </Container>
                 </Row>

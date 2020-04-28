@@ -7,5 +7,5 @@ const port = process.env.port || 8080;
 app.listen(port,() => {
     console.log('Server started on port: ' + port)
     pokemon.init()
-    user.createUser('user','password')
+    user.createUser("user","123")
 });

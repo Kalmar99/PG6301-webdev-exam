@@ -2,13 +2,14 @@
 const pokemons = new Map()
 let counter = 0;
 
-const createPokemon = (name,type,millworth,img) => {
+const createPokemon = (name,type,millworth,img,description) => {
     const pokemon = {
         id: (counter++),
         img: img,
         name: name,
         type: type,
-        millworth: millworth
+        millworth: millworth,
+        description: description
     }
 
     pokemons.set(name,pokemon)
@@ -24,9 +25,9 @@ const getAllPokemon = () => {
 
 
 const init = () => {
-    createPokemon("Pikachu","Electric",1000,"./img/pikachu.png")
-    createPokemon("Charmander","Fire",2000,"./img/charmander.png")
-    createPokemon("Squirtle","Water",1000,"./img/squirtle.png")
+    createPokemon("Pikachu","Electric",1000,"./img/pikachu.png","Whenever Pikachu comes across something new, it blasts it with a jolt of electricity. If you come across a blackened berry, it's evidence that this Pokémon mistook the intensity of its charge.")
+    createPokemon("Charmander","Fire",2000,"./img/charmander.png","The flame that burns at the tip of its tail is an indication of its emotions. The flame wavers when Charmander is enjoying itself. If the Pokémon becomes enraged, the flame burns fiercely.")
+    createPokemon("Squirtle","Water",1000,"./img/squirtle.png","Squirtle's shell is not merely used for protection. The shell's rounded shape and the grooves on its surface help minimize resistance in water, enabling this Pokémon to swim at high speeds.")
 }
 
 
