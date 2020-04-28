@@ -3,7 +3,7 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-
+import Alert from 'react-bootstrap/Alert'
 
 export class Pokemon extends React.Component {
     constructor(props) {
@@ -25,6 +25,7 @@ export class Pokemon extends React.Component {
         
         let response;
         let payload;
+        
         try {
             response = await fetch('/api/pokemons/' + name)
             payload = await response.json()
@@ -50,6 +51,9 @@ export class Pokemon extends React.Component {
     render() {
         return (
             <Container>
+                <Row>
+                    <Col>{this.state.error && <Alert variant="danger" >{this.state.error.toString()}</Alert>}</Col>
+                </Row>
                 <Row>
                     {this.state.pokemon != null && <Container>
                         <Row>

@@ -39,6 +39,11 @@ export class Home extends React.Component {
             return;
         }
 
+        if(response.status == 500) {
+            this.setState({error: '500 Internal server error'})
+            return;
+        }
+
         if(response.status != 200) {
             this.setState({error: 'failed to fetch pokemon, code: ' + response.status})
             return;
@@ -65,7 +70,7 @@ export class Home extends React.Component {
                         <Row>
                             <Col><h3>All pokemons</h3></Col>
                         </Row>
-                        <Row>
+                        <Row className="pokemon-collection">
                             {this.state.pokemon.map(pokemon => <Col className="collection-item" lg={2}  key={pokemon.id}> <Link to={'/pokemon?n='+pokemon.name}>
                                 <Col lg={12}><img src={pokemon.img} className="img-fluid"></img></Col>
                                 <Col><b>{pokemon.name}</b></Col>
