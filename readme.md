@@ -12,9 +12,18 @@ You can then buy lootboxes and get different kinds of pokemon based of what loot
 - Jest with Jsdom, Enzyme and Supertest to test both front-end and backend
 - Passport for authentication
 
+#### Usage
+`yarn install` - Install dependencies\
+`yarn dev` - Starts both server and compiles front-end and watches for changes\
+`yarn start` - starts the server\
+`yarn test` - runs all jest tests\
+`yarn watch:client` - compiles the front-end and watches for changes\
+`yarn watch:server` - starts the server and watches for changes\
+`yarn build` - builds the front-end\
+
 ### Structure
 Its 3 main folders: src, public and tests.
-source code for the app is in src, static files in public and tests in test
+source code for the app is in src, static files in public and tests in test\
 **folder tree:**
  - public
     - static files like index.html etc
@@ -36,15 +45,6 @@ source code for the app is in src, static files in public and tests in test
      - jest-setup.js
      - my-test-utils.js
 
-#### Usage
-`yarn install` - Install dependencies\
-`yarn dev` - Starts both server and compiles front-end and watches for changes\
-`yarn start` - starts the server\
-`yarn test` - runs all jest tests\
-`yarn watch:client` - compiles the front-end and watches for changes\
-`yarn watch:server` - starts the server and watches for changes\
-`yarn build` - builds the front-end\
-
 ### Features
 ##### R requirements
 - [X] Completed R1
@@ -63,7 +63,7 @@ source code for the app is in src, static files in public and tests in test
 ##### Extra features
 - 3 Different Loot boxes with different loot tables 
 
-#### Test coverage
+### Test coverage
 % Stmts: 62.99\
 % Funcs: 66.67\
 % Lines: 62.74

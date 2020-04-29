@@ -1,3 +1,8 @@
+/*
+    This file is based on the index.jsx file from lecture 8 but mofidied to fit my project
+    LINK: https://github.com/arcuri82/web_development_and_api_design/blob/master/les08/authentication/src/client/index.jsx
+*/
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
