@@ -4,6 +4,32 @@ Its a pokemon gotcha game made with react and express. Server provides an RESTfu
 The front-end is a single page application made with react. The game is simple. you get 3 lootboxes (pokeballs) when you create an account, aswell as 5000 coins.
 You can then buy lootboxes and get different kinds of pokemon based of what lootbox you open. You can also mill (sell) the pokemons you have aquired and earn more money to buy more lootboxes. There is 3 different lootboxes (pokeballs) to choose from and 9 different pokemons you can collect.
 
+### technologies used
+- React for the front end
+- Bootstrap for positioning (with react-bootstrap)
+- Express for the web server
+- Babel with webpack to compile the frontend
+- Jest with Jsdom, Enzyme and Supertest to test both front-end and backend
+- Passport for authentication
+
+### Structure
+ src
+  - public
+      - static files like index.html etc
+  - Client
+      - Source code for front-end
+  - Server
+      - db
+         - 'Fake' database code. Stores data in memory and retrieves data.
+      - routes
+         - All the api endpoints
+      - app.js and server.js
+  - tests
+     - client
+         - tests for the front-end
+     - server
+         - tests for the backend
+     - jest-setup.js and my-test-utils.js
 
 #### Usage
 `yarn install` - Install dependencies\
@@ -17,7 +43,7 @@ You can then buy lootboxes and get different kinds of pokemon based of what loot
 ### Features
 ##### R requirements
 - [X] Completed R1
-- [X] Completed R2 (Put is never used by front-end but its there)
+- [X] Completed R2 
 - [X] Completed R3
 - [X] Completed R4
 - [X] R5 Partly'ish compleded (See extra features)
@@ -33,17 +59,19 @@ You can then buy lootboxes and get different kinds of pokemon based of what loot
 - 3 Different Loot boxes with different loot tables 
 
 #### Test coverage
-% Stmts: 61.23
-% Funcs: 64.95
-% Lines: 61.13
+% Stmts: 62.99\
+% Funcs: 66.67\
+% Lines: 62.74\
 
 
 ### Notes
-There is already a user account created when the server starts username: `Foo` and password: `bar` but you can also create a user from the front-end
+There is already a user account created when the server starts username: `Foo` and password: `bar` but you can also create a user from the front-end.
 
 At user-routes.js Line: 153 there is a delete endpoint. I am not sure if that should be a delete. If the user has only 1 pokemon of x type in their collection it will delete it. However if the user has more than 1 pokemon of x type in their collection, the count on that object would just be subtracted. I chose to go with delete as you are essentialy deleting one of the x type in your collection. If thats wrong, at least know that i thought about it.
 
-Some of the code in the tests folder are either copied or based of the code from the course git repo. In every that has copied code there is a note at the top spesifying where it was copied from and to what extent.
+I only have one PUT and its in user-routes.js and is used to reset an account back its original state.
+
+Some of the code in the tests folder are either copied or based of the code from the course git repo. In every file that has copied code or code that is based of the code from the lectures, there is a note at the top spesifying where it was copied from and to what extent.
 
 Images are downloaded from: https://www.pokemon.com/no/pokedex/
 And: https://bulbapedia.bulbagarden.net/wiki/File:Pok%C3%A9_Balls_GL.png

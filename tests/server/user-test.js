@@ -8,6 +8,7 @@ const app = require('../../src/server/app')
 
 const lootDao = require('../../src/server/db/loot')
 const pokemonDao = require('../../src/server/db/pokemon')
+const userDao = require('../../src/server/db/user')
 let id = 0;
 
 
@@ -171,6 +172,60 @@ test('Test opening loot box',async () => {
 
 })
 
+test('Test reset user with put',async () => {
+
+    pokemonDao.init()
+    lootDao.init()
+
+    // Register and login
+    const username = 'TestUser'+(id++)
+
+    const user = {
+        username: username,
+        password: 'password'
+    }
+
+    const agent = request.agent(app)
+
+    let response = await request(app)
+        .post('/api/signup')
+        .send(user)
+        .set('Content-Type','application/json')
+    
+    expect(response.statusCode).toBe(201)
+
+    response = await agent
+        .post('/api/login')
+        .send(user)
+        .set('Content-Type','application/json')
+
+    expect(response.statusCode).toBe(204)
+
+    const pokemon = pokemonDao.getPokemon('Pikachu')
+    console.log(pokemon)
+    userDao.addToCollection(user.username,pokemon)
+    userDao.millFromCollection(user.username,pokemon.name)
+
+    response = await agent
+        .get('/api/user')
+    
+    expect(response.statusCode).toBe(200)
+    expect(response.body.coins).toBe(5000 + pokemon.millworth)
+
+    response = await agent
+        .put('/api/user')
+
+    expect(response.statusCode).toBe(204)
+    
+    
+
+    response = await agent
+        .get('/api/user')
+    
+    expect(response.statusCode).toBe(200)
+    expect(response.body.coins).toBe(5000)
+
+})
 
 
 

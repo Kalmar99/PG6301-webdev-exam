@@ -8,11 +8,12 @@ import {Pokemon} from './pokemon'
 import {Collection} from './collection'
 import {Shop} from './shop'
 
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {BrowserRouter, Switch, Route,Link} from 'react-router-dom'
 
 
 
@@ -24,6 +25,19 @@ export class App extends React.Component {
             username: null,
             error: null
         }
+    }
+
+    notFound = () => {
+        return (
+            <Container className="page h-100">
+                <Row className="justify-content-center mt-3 pt-3">
+                    <Col lg={3}><h3>404 NOT FOUND</h3></Col>
+                </Row>
+                <Row className="justify-content-center">
+                    <Col lg={3}><p>Go back to <Link to="/">frontpage</Link></p></Col>
+                </Row>
+            </Container>
+        )
     }
  
     setLoginStatus = (username) => {
@@ -61,7 +75,7 @@ export class App extends React.Component {
         return (
             <BrowserRouter>
                 <Container className="h-100">
-                    <Row className="h-75">
+                    <Row className="h-100">
                         <Switch>
                             <Route exact path="/pokemon"
                                     render={props => <Pokemon {...props}
@@ -86,6 +100,7 @@ export class App extends React.Component {
                                 render={props => <Home {...props}
                                     username={this.state.username}
                                     setLoginStatus={this.setLoginStatus} />} />
+                            <Route component={this.notFound}></Route>
                         </Switch>
                     </Row>
                     

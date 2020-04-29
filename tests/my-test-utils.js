@@ -1,4 +1,6 @@
 //This file is copied from: https://github.com/arcuri82/web_development_and_api_design/blob/master/les07/server_client_together/tests/mytest-utils.js
+//Made some minor adjustments to fit my project. Added the function overrideUrlParams and made a minor adjustment to overrideFetch
+
 
 // Origin: shared/mytest-utils.js
 
@@ -8,7 +10,7 @@ const request = require('supertest');
 export function overrideUrlParams(query) {
 
     /*
-        Since i used URLSearchParams in pokemon.jsx i need to override it so my front-end can get the parameter
+        Since i used URLSearchParams in pokemon.jsx i need to override it so my front-end can get the value of the spesified URL parameter
         This function was made by me. The rest of this file is copied. (did a minor modification to overrideFetch )
     */
     global.URLSearchParams = class UrlSp {
@@ -17,8 +19,6 @@ export function overrideUrlParams(query) {
         }
 
         get(param) {
-            console.log(param)
-            
             const returnString = query.split('?' + param + '=')
             const pos = returnString.indexOf(query.split('?')[0])+1
             console.log(pos)

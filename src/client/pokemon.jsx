@@ -19,7 +19,6 @@ export class Pokemon extends React.Component {
 
     componentDidMount() {
         const name = new URLSearchParams(window.location.search).get('n')
-        console.log(name)
         this.fetchPokemon(name);
     }
 

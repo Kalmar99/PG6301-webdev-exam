@@ -22,6 +22,27 @@ export class Home extends React.Component {
         this.fetchPokemon()
     }
 
+    resetUser = async () => {
+        let response;
+
+        try {
+            response = await fetch('/api/user',{method: 'PUT'})
+        } catch(error) {
+            this.setState({error})
+        }
+
+        if(response.status === 401) {
+            this.setState({error: 'You need to be logged in to do that'})
+        }
+
+        if(response.status !== 204) {
+            this.setState({error: 'Something went wrong, code: ' + response.status})
+        }
+
+        //Log user out
+        this.props.setLoginStatus(false)
+    }
+
     fetchPokemon = async () => {
 
         let response;
@@ -83,6 +104,15 @@ export class Home extends React.Component {
                                 <Col lg={7} className={" mx-auto text-center type " + pokemon.type.toLowerCase()}>{pokemon.type}</Col>
                             </Link> </Col>)}
                         </Row>
+                        {this.props.username &&<div><Row className="mt-3">
+                            <Col><h4>Danger zone</h4></Col>
+                        </Row>
+                        <Row>
+                            <Col><p>This will <span style={{color: 'red'}}>RESET</span> your account and you will loose all pokemon,coins and pokeballs! You will also be logged out</p></Col>
+                        </Row>
+                        <Row>
+                            <Col><button className="danger-btn p-1 pl-2 pr-2" onClick={this.resetUser}>RESET my account</button></Col>
+                        </Row></div>}
                     </Container>
                 </Row>
             </Container>

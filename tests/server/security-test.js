@@ -323,4 +323,8 @@ test('Test opening another players lootbox',async () => {
     expect(response.statusCode).toBe(403);
 })
 
+test('Test put while not logged in',async () => {
+    const response = await request(app).put('/api/user')
+    expect(response.statusCode).toBe(401);
+})
 

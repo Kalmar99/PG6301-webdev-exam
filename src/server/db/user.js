@@ -8,7 +8,7 @@ const createUser = (username,password) => {
     
     const pokeball = {
         name: "Pokeball",
-        cost: 5000,
+        cost: 1000,
         img: "./img/pokeballs/pokeball.png",
         count: 3,
         pokemon: ["Pikachu","Charmander","Squirtle"]
@@ -18,7 +18,7 @@ const createUser = (username,password) => {
         id: (counter++),
         username: username,
         password: password,
-        coins: 1000,
+        coins: 5000,
         loot: [],
         collection: []
     }
@@ -45,8 +45,10 @@ const verifyUser = (username,password) => {
 }
 
 const updateUser = (username,password) => {
-    const newUser = createUser(username,password)
-    users.set(newUser.username,newUser);
+    //Replacing the entire object
+    createUser(username,password)
+    const newUser = getUser(username)
+    users.set(username,newUser);
 }
 
 const millFromCollection = (username,pokemon) => {
