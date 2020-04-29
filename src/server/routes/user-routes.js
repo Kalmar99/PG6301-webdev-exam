@@ -96,12 +96,15 @@ router.get('/user/:name/lootboxes',(req,res) => {
     const user = userDao.getUser(username);
 
     if(req.user) {
-        if(user) {
-            res.json(user.loot)
+        if(req.user.username === username) {
+            if(user) {
+                res.json(user.loot)
+                return;
+            }
+            res.status(404).send()
             return;
         }
-        res.status(404).send()
-        return;
+        res.status(401).send()
     }
     res.status(401).send()
     return;

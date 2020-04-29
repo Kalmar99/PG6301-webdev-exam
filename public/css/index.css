@@ -15,3 +15,12 @@ body,html {
 #root {
     height:100% !important;
 }
+
+.gray-row {
+    background-color: gray;
+}
+
+
+.loot-table {
+    border: 2px solid black;
+}

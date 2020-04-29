@@ -71,13 +71,13 @@ export class Home extends React.Component {
                 <Row className="mt-2">
                     <Container>
                         <Row>
-                            <Col>Welcome to catch'em all{this.props.username && <b>{" " + this.props.username}</b>}! This game is all about opening pokeballs to gain new pokemon. {!this.props.username && <p>If you dont have an account you can register <Link to="/register">here</Link></p>  }</Col>
+                            <Col className="ml-3">Welcome to catch'em all{this.props.username && <b>{" " + this.props.username}</b>}! This game is all about opening pokeballs to gain new pokemon. {!this.props.username && <p>If you dont have an account you can register <Link to="/register">here</Link></p>  }</Col>
                         </Row>
                         <Row className="mb-3">
-                            <Col><h3>All pokemons</h3></Col>
+                            <Col className="ml-3"><h3>All pokemons</h3></Col>
                         </Row>
                         <Row className="pokemon-collection">
-                            {this.state.pokemon.map(pokemon => <Col className="collection-item" lg={2}  key={pokemon.id + pokemon.name}> <Link to={'/pokemon?n='+pokemon.name}>
+                            {this.state.pokemon.map(pokemon => <Col className="collection-item mt-2" lg={2}  key={pokemon.id + pokemon.name}> <Link to={'/pokemon?n='+pokemon.name}>
                                 <Col lg={12}><img src={pokemon.img} className="img-fluid"></img></Col>
                                 <Col className="text-center"><b>{pokemon.name}</b></Col>
                                 <Col lg={7} className={" mx-auto text-center type " + pokemon.type.toLowerCase()}>{pokemon.type}</Col>

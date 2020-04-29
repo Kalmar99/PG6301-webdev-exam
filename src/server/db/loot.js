@@ -3,6 +3,8 @@ const lootboxes = new Map()
 
 const init = () => {
     createLootBox("Pokeball","./img/pokeballs/pokeball.png",["Pikachu","Charmander","Squirtle"],1000)
+    createLootBox("Greatball","./img/pokeballs/greatball.png",["Caterpie","Rattata","Nidorina"],1500)
+    createLootBox("Ultraball","./img/pokeballs/ultraball.png",["Blastoise","Ninetales","Persian"],2000)
 }
 
 const createLootBox = (name,img,pokemon,cost) => {

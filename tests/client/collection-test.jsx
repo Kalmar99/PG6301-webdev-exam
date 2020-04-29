@@ -112,7 +112,6 @@ test('Test display a collection using the backend',async () => {
 
         let predicate = () => {
             wrapper.update()
-            console.log(wrapper.debug())
             const allpokemons = (wrapper.find('.poke-collection').length >= 1)
             return allpokemons
         }
@@ -150,9 +149,9 @@ test('Test display not logged in', async () => {
     const wrapper = mount (
         <MemoryRouter initialEntries={['/collection']}>
              <Collection setLoginStatus={() => {}} 
-                username={null} 
+                username={{}} 
                 fetchUser={(done) => {
-                    done(null)
+                    done({})
                     }} />
         </MemoryRouter>)
     

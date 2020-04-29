@@ -25,9 +25,6 @@ router.get('/pokemons/:name',(req,res) => {
 
 })
 
-/* Here i was not sure if i should use put or delete. If the player has more than 1 of a certain item in 
-the collection its a update and if its only 1 item of that type in the collection then its a delete.
-*/
 
 
 module.exports = router;
