@@ -94,40 +94,43 @@ export class Shop extends React.Component {
     renderIfLoggedIn = () => {
         return (
             <Container className="page h-100">
-                    <Row>
+                    <Row className="mt-3">
                         <Col><h2>Loot table</h2></Col>
                     </Row>
                     <Row>
                         <Col className="m-2 loot-table">
                             <Row className="gray-row">
-                                <Col lg={2} className="my-auto" ><img className="img-fluid" src="./img/pokeballs/pokeball.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/pikachu.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/charmander.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/squirtle.png"></img></Col>
+                                <Col lg={2} className="my-auto" ><img title="Pokeball" className="img-fluid" src="./img/pokeballs/pokeball.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Pikachu" className="img-fluid" src="./img/pikachu.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Charmander" className="img-fluid" src="./img/charmander.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Squirtle" className="img-fluid" src="./img/squirtle.png"></img></Col>
                             </Row>
                             <Row>
-                                <Col lg={2} className="my-auto" ><img className="img-fluid" src="./img/pokeballs/greatball.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/caterpie.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/rattata.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/nidorina.png"></img></Col>
+                                <Col lg={2} className="my-auto" ><img title="Greatball" className="img-fluid" src="./img/pokeballs/greatball.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Caterpie" className="img-fluid" src="./img/caterpie.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Rattata" className="img-fluid" src="./img/rattata.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Nidorina" className="img-fluid" src="./img/nidorina.png"></img></Col>
                             </Row>
                             <Row className="gray-row">
-                                <Col lg={2} className="my-auto" ><img className="img-fluid" src="./img/pokeballs/ultraball.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/blastoise.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/ninetales.png"></img></Col>
-                                <Col lg={1} className="my-auto"><img className="img-fluid" src="./img/persian.png"></img></Col>
+                                <Col lg={2} className="my-auto" ><img title="Ultraball" className="img-fluid" src="./img/pokeballs/ultraball.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Blastoise" className="img-fluid" src="./img/blastoise.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Ninetailes" className="img-fluid" src="./img/ninetales.png"></img></Col>
+                                <Col lg={1} className="my-auto"><img title="Persian" className="img-fluid" src="./img/persian.png"></img></Col>
                             </Row>
                         </Col>
+                    </Row>
+                    <Row>
+                        <Col><p>Hover pokemon to see their name</p></Col>
                     </Row>
                     <Row className="mt-2 mb-2">
                         <Col><h2>Pokeballs</h2></Col>
                     </Row>
                     <Row className="mt-2">
-                        {this.state.lootboxes.length >= 1 && this.state.lootboxes.map((lootbox) => <Col className="poke-ball" key={lootbox.name} lg={2}>
+                        {this.state.lootboxes.length >= 1 && this.state.lootboxes.map((lootbox) => <Col className="poke-ball text-center" key={lootbox.name} lg={2}>
                             <Col><img className="img-fluid" src={lootbox.img}></img></Col>
                             <Col><b>{lootbox.name}</b></Col>
                             <Col>Cost: <p>{lootbox.cost} Coins</p></Col>
-                            <Col><button className={"btn"+lootbox.name} onClick={() => {this.buyLootBox(lootbox.name)}}>Buy</button></Col>
+                            <Col><button className={"w-75 loot-buy-btn btn"+lootbox.name} onClick={() => {this.buyLootBox(lootbox.name)}}>Buy</button></Col>
                         </Col>)}
                     </Row>
                 </Container>

@@ -33,9 +33,9 @@ You can then buy lootboxes and get different kinds of pokemon based of what loot
 - 3 Different Loot boxes with different loot tables 
 
 #### Test coverage
-% Stmts: 
-% Funcs:
-% Lines: 
+% Stmts: 61.23
+% Funcs: 64.95
+% Lines: 61.13
 
 
 ### Notes
@@ -45,3 +45,5 @@ At user-routes.js Line: 153 there is a delete endpoint. I am not sure if that sh
 
 Some of the code in the tests folder are either copied or based of the code from the course git repo. In every that has copied code there is a note at the top spesifying where it was copied from and to what extent.
 
+Images are downloaded from: https://www.pokemon.com/no/pokedex/
+And: https://bulbapedia.bulbagarden.net/wiki/File:Pok%C3%A9_Balls_GL.png

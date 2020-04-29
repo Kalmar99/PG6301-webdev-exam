@@ -8,7 +8,7 @@ const createUser = (username,password) => {
     
     const pokeball = {
         name: "Pokeball",
-        cost: 1000,
+        cost: 5000,
         img: "./img/pokeballs/pokeball.png",
         count: 3,
         pokemon: ["Pikachu","Charmander","Squirtle"]

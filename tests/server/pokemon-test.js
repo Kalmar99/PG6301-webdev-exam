@@ -1,3 +1,8 @@
+/*
+    File is based on code from lecture 7 but modified to fit my project
+    LINK: https://github.com/arcuri82/web_development_and_api_design/blob/master/les07/server_client_together/tests/server/app-test.js
+*/
+
 const request = require('supertest')
 const app = require('../../src/server/app')
 const pokemonDao = require('../../src/server/db/pokemon')

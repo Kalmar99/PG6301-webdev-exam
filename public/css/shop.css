@@ -1,0 +1,18 @@
+
+.gray-row {
+    background-color: gray;
+}
+
+
+.loot-table {
+    border: 2px solid black;
+}
+
+
+.loot-buy-btn {
+    background-color: #32a83c;
+    color: black;
+    font-weight: 600;
+    border: 2px solid #207527;
+    border-radius: 4px;
+}

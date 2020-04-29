@@ -2,6 +2,8 @@
 @import URL('./collection.css');
 @import URL('./header.css');
 @import URL('./types.css');
+@import URL('./shop.css');
+
 
 .page {
     background-color:white;
@@ -16,11 +18,3 @@ body,html {
     height:100% !important;
 }
 
-.gray-row {
-    background-color: gray;
-}
-
-
-.loot-table {
-    border: 2px solid black;
-}
