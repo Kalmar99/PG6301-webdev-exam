@@ -4,7 +4,7 @@ Its a pokemon gotcha game made with react and express. Server provides an RESTfu
 The front-end is a single page application made with react. The game is simple. you get 3 lootboxes (pokeballs) when you create an account, aswell as 5000 coins.
 You can then buy lootboxes and get different kinds of pokemon based of what lootbox you open. You can also mill (sell) the pokemons you have aquired and earn more money to buy more lootboxes. There is 3 different lootboxes (pokeballs) to choose from and 9 different pokemons you can collect.
 
-### technologies used
+### Technologies used
 - React for the front end
 - Bootstrap for positioning (with react-bootstrap)
 - Express for the web server
@@ -66,7 +66,7 @@ source code for the app is in src, static files in public and tests in test
 #### Test coverage
 % Stmts: 62.99\
 % Funcs: 66.67\
-% Lines: 62.74\
+% Lines: 62.74
 
 
 ### Notes
