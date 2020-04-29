@@ -100,6 +100,7 @@ const addLoot = (user,box) => {
     return;
 }
 
+
 const removeLoot = (user,box) => {
 
     for(let i = 0; i < user.loot.length; i++) {
@@ -107,15 +108,14 @@ const removeLoot = (user,box) => {
             
             if(user.loot[i].count > 1) {
                 user.loot[i].count--;
+                return true;
             } else {
-                user.loot[i].splice(i,1)
+                user.loot.splice(i,1)
+                return true;
             }
-            user.loot.splice(i,1)
-            return;
         }
     }
-    const pos = user.loot.indefOf(box)
-    user.loot.splice(pos,1)
+    return false;
 }
  
 

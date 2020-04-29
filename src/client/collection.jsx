@@ -5,8 +5,11 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {Link} from 'react-router-dom'
 import Alert from 'react-bootstrap/Alert'
+
+import Modal from 'react-bootstrap/Modal'
  
 import {Header} from './header'
+import Button from 'react-bootstrap/button'
 
 
 export class Collection extends React.Component {
@@ -18,12 +21,13 @@ export class Collection extends React.Component {
             username: null,
             collection: [],
             loot: [],
-            trigger: false
+            won: {},
+            show: false
+
         }
     }
 
     componentDidMount() {
-        
         this.props.fetchUser((payload) => {
             this.setState({username: payload.username})
             this.fetchUserCollection()
@@ -122,7 +126,46 @@ export class Collection extends React.Component {
 
         //update the collection
         this.fetchUserCollection()
-      
+    }
+
+    openLootBox = async (lootbox) => {
+        let response;
+        let payload;
+
+        try {
+            response = await fetch('/api/user/'+ this.state.username +'/lootboxes/' + lootbox,{method: 'POST'})
+            payload = await response.json()
+        } catch(error) {
+            this.setState({error})
+            return;
+        }
+
+
+        if(response.status == 401) {
+            this.setState({error: 'You need to be logged in to do that!'})
+            this.props.setLoginStatus(false)
+            return;
+        }
+
+        if(response.status == 403) {
+            this.setState({error: 'You are not allowed to open that!'})
+            return;
+        }
+
+        if(response.status === 404) {
+            this.setState({error: '404 Cant find the resource you requested'})
+            return;
+        }
+
+        if(response.status != 201) {
+            this.setState({error: 'Something went wrong, code:' + response.status})
+            return;
+        }
+        
+        
+        this.setState({won: payload,show: true})
+        //Refresh lootboxes
+        this.fetchUserLootboxes()
 
     }
 
@@ -142,7 +185,7 @@ export class Collection extends React.Component {
                     {this.state.loot.length >= 1 && this.state.loot.map((loot) => <Col lg={2}>
                         <Col><img className="img-fluid" src={loot.img}></img></Col>
                         <Col><b>{loot.count}x {loot.name}</b></Col>
-                        <Col><button>Open</button></Col>
+                        <Col><button onClick={() => {this.openLootBox(loot.name)}}>Open</button></Col>
                     </Col>)}
                 </Row>
                 <Row className="mt-3">
@@ -157,6 +200,12 @@ export class Collection extends React.Component {
                     </Col>)}
                 </Row>
             </Container>)
+    }
+
+    handleCloseModal = () => {
+        this.setState({show: false, won: {}})
+        //update collection
+        this.fetchUserCollection()
     }
 
     renderIfNotLoggedIn = () => {
@@ -174,6 +223,7 @@ export class Collection extends React.Component {
     render() {
 
         let page;
+        
 
         if(!this.state.username) {
             page = this.renderIfNotLoggedIn()
@@ -181,10 +231,28 @@ export class Collection extends React.Component {
             page = this.renderIfLoggedIn()
         }
 
+      
         return (
            <Container className="page h-100 mt-3"> 
             <Row>
                 <Header  setLoginStatus={this.props.setLoginStatus} trigger={this.state.trigger} username={this.props.username}></Header>
+            </Row>
+            <Row>
+                <Modal show={this.state.show}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>You got a {this.state.won.name}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Col><img src={this.state.won.img}></img></Col>
+                        <Col><b>{this.state.won.type}</b></Col>
+                        <Col><p>{this.state.won.description}</p></Col>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={this.handleCloseModal}>
+                            Ok
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Row>
             <Row>
                 {page}

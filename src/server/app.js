@@ -11,7 +11,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
 const userDb = require('./db/user')
 
-const authRoutes = require('./routes/auth-routes')
+const authRoutes = require('./routes/user-routes')
 const pokemonRoutes = require('./routes/pokemon-routes')
 const lootRoutes = require('./routes/loot-routes')
 

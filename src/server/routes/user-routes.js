@@ -8,6 +8,7 @@ const router = express.Router();
 const passport = require('passport');
 const userDao = require('../db/user');
 const pokemonDao = require('../db/pokemon');
+const lootDao = require('../db/loot')
 
 router.post('/login',passport.authenticate('local'),(req,res) => {
     res.status(204).send();
@@ -91,13 +92,47 @@ router.get('/user/:name/lootboxes',(req,res) => {
     return;
 })
 
+router.post('/user/:name/lootboxes/:lootbox',(req,res) => {
+    
+    const user = userDao.getUser(req.params['name']);
+    const lootbox = lootDao.getLootBox(req.params['lootbox']);
+    let pokemon = lootbox.pokemon[Math.floor(Math.random() * lootbox.pokemon.length)]
+    pokemon = pokemonDao.getPokemon(pokemon)
+    
+    if(req.user) {
+        if(req.user.username == user.username) {
+        if(user && lootbox) {
+            if(userDao.removeLoot(user,lootbox)) {
+                //If the user has to lootbox, add pokemon to collection
+                userDao.addToCollection(user.username,pokemon)
+                res.status(201)
+                res.json(pokemon);
+                res.send()
+                return;
+            } else {
+                //If the user doesent have the loot box
+                res.status(403).send()
+                return;
+            }
+        } else {
+            res.status(404).send()
+            return;
+        }
+    }
+    res.status(401).send()
+    return;
+    }
+    res.status(401).send()
+    return;
+})
+
 /*
     I was in doubt if this should be put or delete. 
     If there is multiple pokemons of the same type in the collection then it will only update the count
     but if there is only one it will delete it. I landed on delete since that seemed most logical to me in the end.
 */
 
-router.delete('/user/:name/collection/:pokemon',async (req,res) => {
+router.delete('/user/:name/collection/:pokemon', (req,res) => {
 
     const name = req.params['name']
     const pokemonName = req.params['pokemon']
@@ -115,12 +150,13 @@ router.delete('/user/:name/collection/:pokemon',async (req,res) => {
                 res.status(404).send()
             }
         } else {
-            res.status(401).send()
+            res.status(403).send()
             return;
         }
     }
     res.status(401).send()
     return;
 })
+
 
 module.exports = router;

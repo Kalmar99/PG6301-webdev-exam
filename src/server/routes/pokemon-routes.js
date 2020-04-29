@@ -29,14 +29,5 @@ router.get('/pokemons/:name',(req,res) => {
 the collection its a update and if its only 1 item of that type in the collection then its a delete.
 */
 
-router.delete('/pokemons/:name',(req,res) => {
-    const name = req.params['name']
-    if(req.user) {
-        userDao.millFromCollection(req.user.name,name)
-        res.status(204).send()
-        return;
-    } 
-    res.status(401).send()
-})
 
 module.exports = router;
