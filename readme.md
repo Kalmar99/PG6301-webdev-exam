@@ -12,20 +12,21 @@ You can then buy lootboxes and get different kinds of pokemon based of what loot
 `yarn test` - runs all jest tests\
 `yarn watch:client` - compiles the front-end and watches for changes\
 `yarn watch:server` - starts the server and watches for changes\
+`yarn build` - builds the front-end\
 
 ### Features
 ##### R requirements
-[X] Completed R1
-[X] Completed R2 (Put is never used by front-end but its there)
-[X] Completed R3
-[X] Completed R4
-[X] R5 Partly'ish compleded (3 different types of lootboxes with their own loot table)
+ [X] Completed R1
+ [X] Completed R2 (Put is never used by front-end but its there)
+ [X] Completed R3
+ [X] Completed R4
+ [X] R5 Partly'ish compleded (3 different types of lootboxes with their own loot table)
 ##### T requirements
-[X] Completed T1
-[X] Completed T2
-[X] Completed T3
-[X] Completed T4
-[X] Completed T5
+ [X] Completed T1
+ [X] Completed T2
+ [X] Completed T3
+ [X] Completed T4
+ [X] Completed T5
 
 #### Test coverage
 % Stmts: 
