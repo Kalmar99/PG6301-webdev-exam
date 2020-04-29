@@ -127,7 +127,7 @@ export class Shop extends React.Component {
                             <Col><img className="img-fluid" src={lootbox.img}></img></Col>
                             <Col><b>{lootbox.name}</b></Col>
                             <Col>Cost: <p>{lootbox.cost} Coins</p></Col>
-                            <Col><button onClick={() => {this.buyLootBox(lootbox.name)}}>Buy</button></Col>
+                            <Col><button className={"btn"+lootbox.name} onClick={() => {this.buyLootBox(lootbox.name)}}>Buy</button></Col>
                         </Col>)}
                     </Row>
                 </Container>

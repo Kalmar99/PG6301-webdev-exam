@@ -5,6 +5,30 @@
 const request = require('supertest');
 
 
+export function overrideUrlParams(query) {
+
+    /*
+        Since i used URLSearchParams in pokemon.jsx i need to override it so my front-end can get the parameter
+        This function was made by me. The rest of this file is copied. (did a minor modification to overrideFetch )
+    */
+    global.URLSearchParams = class UrlSp {
+        constructor(string) {
+            this.string = string;
+        }
+
+        get(param) {
+            console.log(param)
+            
+            const returnString = query.split('?' + param + '=')
+            const pos = returnString.indexOf(query.split('?')[0])+1
+            console.log(pos)
+            console.log(returnString[pos])
+            return returnString[pos];
+
+        }
+    }
+}
+
 /*
     Here, we stub away the calls to "fetch", as not available in NodeJS (ie, they
     are specific to the browser, like alert()).
@@ -55,45 +79,6 @@ export function overrideFetch(app,authAgent){
     } else {
         agent = request.agent(app);
     }
-
-    global.fetch = async (url, init) => {
-
-        let response;
-
-        if(!init || !init.method || init.method.toUpperCase() === "GET"){
-            response = await agent.get(url);
-        } else if(init.method.toUpperCase() === "POST"){
-            response = await agent.post(url)
-                .send(init.body)
-                .set('Content-Type', init.headers ? init.headers['Content-Type'] : "application/json");
-        } else if(init.method.toUpperCase() === "PUT"){
-            response = await agent.put(url)
-                .send(init.body)
-                .set('Content-Type', init.headers ? init.headers['Content-Type'] : "application/json");
-        } else if(init.method.toUpperCase() === "DELETE"){
-            response = await agent.delete(url);
-        } else {
-            throw "Unhandled HTTP method: " + init.method;
-        }
-
-        const payload = response.body;
-
-        return new Promise( (resolve, reject) => {
-
-            const httpResponse = {
-                status: response.statusCode,
-                json: () => {return new Promise(
-                    (res, rej) => {res(payload);}
-                )}
-            };
-
-            resolve(httpResponse);
-        });
-    };
-}
-
-export function overrideAuthFetch(agent){
-
 
     global.fetch = async (url, init) => {
 

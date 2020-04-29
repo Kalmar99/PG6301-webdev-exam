@@ -1,6 +1,6 @@
 const request = require('supertest')
 const app = require('../../src/server/app')
-const userDao = require('../../src/server/db/user')
+
 const lootDao = require('../../src/server/db/loot')
 const pokemonDao = require('../../src/server/db/pokemon')
 let id = 0;
@@ -112,7 +112,7 @@ test('Test creating user and logging in from another session',async () => {
 })
 
 
-test('Test adding pokemon to user collection',async () => {
+test('Test opening loot box',async () => {
 
     pokemonDao.init()
     lootDao.init()
@@ -165,6 +165,8 @@ test('Test adding pokemon to user collection',async () => {
     expect(response.body.collection[0]).not.toBe(null)
 
 })
+
+
 
 
 

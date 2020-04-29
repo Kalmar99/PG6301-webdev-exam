@@ -19,6 +19,7 @@ export class Pokemon extends React.Component {
 
     componentDidMount() {
         const name = new URLSearchParams(window.location.search).get('n')
+        console.log(name)
         this.fetchPokemon(name);
     }
 
@@ -59,7 +60,7 @@ export class Pokemon extends React.Component {
                     <Col>{this.state.error && <Alert variant="danger" >{this.state.error.toString()}</Alert>}</Col>
                 </Row>
                 <Row className="mt-3">
-                    {this.state.pokemon != null && <Container className="mt-3">
+                    {this.state.pokemon != null && <Container className="mt-3 pokemon">
                         <Row className="justify-content-center mt-3">
                             <Col lg={2}><img className="img-fluid" src={this.state.pokemon.img}></img></Col>
                             <Col lg={6}>

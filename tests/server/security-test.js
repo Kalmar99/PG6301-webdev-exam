@@ -277,6 +277,50 @@ test('Test delete/mill other users pokemon while being logged in',async () => {
 
 })
 
+test('Test opening another players lootbox',async () => {
+    
+    pokemon.init()
+    loot.init()
 
+
+    const agent = request.agent(app)
+    
+    const otherUser = {
+        username: 'dontmillmydata',
+        password: '404'
+    }
+    
+    
+    const user = {
+        username: 'FooSecurity404',
+        password: 'BarPassword'
+    }
+
+    //Create user
+    let response = await agent
+        .post('/api/signup')
+        .send(user)
+        .set('Content-Type','application/json')
+    
+    expect(response.statusCode).toBe(201)
+
+    //Create target user
+    response = await request(app)
+        .post('/api/signup')
+        .send(otherUser)
+        .set('Content-Type','application/json')
+
+    response = await agent 
+        .post('/api/login')
+        .send(user)
+        .set('Content-Type','application/json')
+
+    expect(response.statusCode).toBe(204)
+
+    response = await agent
+        .post('/api/user/'+otherUser.username+'/lootboxes/Pokeball')
+    
+    expect(response.statusCode).toBe(403);
+})
 
 
