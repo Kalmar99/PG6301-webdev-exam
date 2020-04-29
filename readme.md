@@ -13,23 +13,28 @@ You can then buy lootboxes and get different kinds of pokemon based of what loot
 - Passport for authentication
 
 ### Structure
- src
-  - public
-      - static files like index.html etc
-  - Client
-      - Source code for front-end
-  - Server
-      - db
-         - 'Fake' database code. Stores data in memory and retrieves data.
-      - routes
-         - All the api endpoints
-      - app.js and server.js
-  - tests
+Its 3 main folders: src, public and tests.
+source code for the app is in src, static files in public and tests in test
+**folder tree:**
+ - public
+    - static files like index.html etc
+ - src
+    - client
+       - jsx files for react front-end
+    - server
+       - db
+          - 'Fake' database code. Stores data in memory and retrieves data.
+       - routes
+          - All the api endpoints
+       - app.js
+       - server.js
+ - tests
      - client
-         - tests for the front-end
+        - tests for the front-end
      - server
-         - tests for the backend
-     - jest-setup.js and my-test-utils.js
+        - tests for the backend
+     - jest-setup.js
+     - my-test-utils.js
 
 #### Usage
 `yarn install` - Install dependencies\
