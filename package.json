@@ -1,8 +1,7 @@
 {
-  "name": "PG6301-webdev-exam",
+  "name": "pg6301_303-exam",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/Kalmar99/PG6301-webdev-exam.git",
   "author": "candidate303",
   "license": "MIT",
   "babel": {

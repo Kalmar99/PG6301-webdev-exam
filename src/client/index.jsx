@@ -20,8 +20,6 @@ import Col from 'react-bootstrap/Col'
 
 import {BrowserRouter, Switch, Route,Link} from 'react-router-dom'
 
-
-
 export class App extends React.Component {
     constructor(props) {
         super(props)

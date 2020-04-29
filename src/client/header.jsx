@@ -69,7 +69,6 @@ export class Header extends React.Component {
 
     render() {
 
-        
         return(
             <Container>
                 <Row className="header">

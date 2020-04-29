@@ -126,6 +126,7 @@ export class Collection extends React.Component {
 
         //update the collection
         this.fetchUserCollection()
+        
     }
 
     openLootBox = async (lootbox) => {

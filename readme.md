@@ -64,9 +64,9 @@ source code for the app is in src, static files in public and tests in test\
 - 3 Different Loot boxes with different loot tables 
 
 ### Test coverage
-% Stmts: 62.99\
-% Funcs: 66.67\
-% Lines: 62.74
+% Stmts: 61.78\
+% Funcs: 66\
+% Lines: 61.53
 
 
 ### Notes
@@ -80,3 +80,7 @@ Some of the code in the tests folder are either copied or based of the code from
 
 Images are downloaded from: https://www.pokemon.com/no/pokedex/
 And: https://bulbapedia.bulbagarden.net/wiki/File:Pok%C3%A9_Balls_GL.png
+
+
+#### Known Bugs/imperfections
+ - When milling a pokemon you need to refresh the page to see the updated coins in the header bar.

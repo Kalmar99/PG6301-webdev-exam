@@ -22,6 +22,26 @@ export class Home extends React.Component {
         this.fetchPokemon()
     }
 
+    logout = async () => {
+        let response;
+
+        try {
+            response = await fetch('/api/logout',{method: 'POST'})
+        } catch(error) {
+            this.setState({error})
+            return;
+        }
+
+        if(response.status != 204) {
+            this.setState({error: 'Something went wrong, code: ' + response.status})
+            return;
+        }
+
+        this.setState({user: null})
+        this.props.setLoginStatus(false)
+        this.props.history.push('/')
+    }
+
     resetUser = async () => {
         let response;
 
@@ -41,6 +61,8 @@ export class Home extends React.Component {
 
         //Log user out
         this.props.setLoginStatus(false)
+        this.logout()
+        this.props.history.push('/login')
     }
 
     fetchPokemon = async () => {
