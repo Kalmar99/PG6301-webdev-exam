@@ -1,3 +1,9 @@
+/*
+        This file is based of the code from PG6301 lecture 7 but i have modified it to fit my project
+        LINK: https://github.com/arcuri82/web_development_and_api_design/blob/master/les07/server_client_together/tests/client/home-test.jsx
+*/
+
+
 const React = require('react');
 const {mount} = require('enzyme');
 const {MemoryRouter} = require('react-router-dom');
@@ -161,8 +167,9 @@ test('Test display not logged in', async () => {
 
     expect(html).toMatch('You need to be logged in to see this page!')
 
-
 })
+
+
 
    
 

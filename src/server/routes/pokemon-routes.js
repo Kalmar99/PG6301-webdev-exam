@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const pokemonDao = require('../db/pokemon')
-const userDao = require('../db/user')
+
 
 
 // This endpoint should be open for everyone regardless if their logged in
