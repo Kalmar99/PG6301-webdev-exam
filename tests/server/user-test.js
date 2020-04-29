@@ -1,7 +1,8 @@
 const request = require('supertest')
 const app = require('../../src/server/app')
 const userDao = require('../../src/server/db/user')
-
+const lootDao = require('../../src/server/db/loot')
+const pokemonDao = require('../../src/server/db/pokemon')
 let id = 0;
 
 
@@ -41,7 +42,7 @@ test('Test register user and fail to get userdata from another session',async ()
         .post('/api/signup')
         .send(user)
         .set('Content-Type','application/json')
-
+    
     expect(response.statusCode).toBe(201)
 
     //Doesent use the agent so this request will not be in the same session
@@ -53,7 +54,7 @@ test('Test register user and fail to get userdata from another session',async ()
 
 test('Test register using and getting data in same session',async () => {
 
-    const username = 'user-'+(id++)
+    const username = 'TestUser'+(id++)
 
     const user = {
         username: username,
@@ -79,7 +80,7 @@ test('Test register using and getting data in same session',async () => {
 
 test('Test creating user and logging in from another session',async () => {
     
-    const username = 'user-'+(id++)
+    const username = 'TestUser'+(id++)
 
     const user = {
         username: username,
@@ -108,6 +109,62 @@ test('Test creating user and logging in from another session',async () => {
 
     expect(response.statusCode).toBe(200)
     expect(response.body.username).toBe(username)
+})
+
+
+test('Test adding pokemon to user collection',async () => {
+
+    pokemonDao.init()
+    lootDao.init()
+
+    // Register and login
+    const username = 'TestUser'+(id++)
+
+    const user = {
+        username: username,
+        password: 'password'
+    }
+
+    const agent = request.agent(app)
+
+    let response = await request(app)
+        .post('/api/signup')
+        .send(user)
+        .set('Content-Type','application/json')
+    
+    expect(response.statusCode).toBe(201)
+
+    response = await agent
+        .post('/api/login')
+        .send(user)
+        .set('Content-Type','application/json')
+
+    expect(response.statusCode).toBe(204)
+    
+    //Open loot box
+    const name = "Pokeball"
+
+    response = await agent
+        .post('/api/user/' + user.username + '/lootboxes/' + name)
+    
+    expect(response.statusCode).toBe(201)
+
+    //Check user lootboxes
+    response = await agent
+        .get('/api/user/' + user.username + '/lootboxes')
+    
+    expect(response.statusCode).toBe(200)
+    expect(response.body[0].count).toBe(2);
+
+    //Check user pokemon to see if one has been added to collection
+    response = await agent 
+        .get('/api/user/' + user.username + '/collection')
+
+    expect(response.statusCode).toBe(200)
+    console.log(response.body)
+    expect(response.body.collection).toHaveLength(1)
+    expect(response.body.collection[0]).not.toBe(null)
+
 })
 
 

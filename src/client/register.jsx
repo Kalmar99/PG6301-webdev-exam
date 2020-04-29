@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Alert from 'react-bootstrap/Alert'
+import {Header} from './header'
 
 export class Register extends React.Component {
     constructor(props) {
@@ -71,25 +72,31 @@ export class Register extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container className="page w-100 mt-3">
                 <Row>
-                    <Container>
+                    <Header setLoginStatus={this.props.setLoginStatus} username={this.props.username}></Header> 
+                </Row>
+                <Row>
+                    <Container className="mt-3">
                         <Row>
+                            <Col><h2>Register</h2></Col>
+                        </Row>
+                        <Row className="">
                             {this.state.error != null && <Col>
                                 <Alert variant="danger">{this.state.error.toString()}</Alert>
                             </Col>}
                         </Row>
-                        <Row>
-                            <input onChange={this.onUsernameChange} placeholder="Username" />
+                        <Row className="mt-2">
+                            <Col><input onChange={this.onUsernameChange} placeholder="Username" /></Col>
                         </Row>
-                        <Row>
-                            <input onChange={this.onPasswordChange} placeholder="Password" type="password" />
+                        <Row className="mt-2">
+                            <Col><input onChange={this.onPasswordChange} placeholder="Password" type="password" /></Col>
                         </Row>
-                        <Row>
-                            <input onChange={this.onPasswordConfirmChange} placeholder="Confirm Password" type="password" />
+                        <Row className="mt-2">
+                            <Col><input onChange={this.onPasswordConfirmChange} placeholder="Confirm Password" type="password" /></Col>
                         </Row>
-                        <Row>
-                            <button onClick={this.register}>Register</button>
+                        <Row className="mt-2">
+                            <Col><button onClick={this.register}>Register</button></Col>
                         </Row>
                     </Container>
                 </Row>

@@ -1,9 +1,18 @@
 const pokemonDao = require('./pokemon')
 
+
 const users = new Map()
 let counter = 0;
 
 const createUser = (username,password) => {
+    
+    const pokeball = {
+        name: "Pokeball",
+        cost: 1000,
+        img: "./img/pokeballs/pokeball.png",
+        count: 3,
+        pokemon: ["Pikachu","Charmander","Squirtle"]
+    }
     
     const user = {
         id: (counter++),
@@ -13,7 +22,10 @@ const createUser = (username,password) => {
         loot: [],
         collection: []
     }
+    user.loot.push(pokeball)
+  
     return users.set(username,user)
+
 }
 
 const getUser = (username) => {
@@ -32,16 +44,21 @@ const verifyUser = (username,password) => {
 
 }
 
+const updateUser = (username,password) => {
+    const newUser = createUser(username,password)
+    users.set(newUser.username,newUser);
+}
+
 const millFromCollection = (username,pokemon) => {
     
     const user = getUser(username)
     
-    console.log(user)
+  
     const pokemonObject = pokemonDao.getPokemon(pokemon)
 
     removeFromCollection(username,pokemonObject)
     user.coins += pokemonObject.millworth;
-    console.log(user)
+    
 
 }
 
@@ -119,4 +136,4 @@ const removeLoot = (user,box) => {
 }
  
 
-module.exports = {createUser,getUser,verifyUser,addToCollection,removeFromCollection,millFromCollection,removeLoot,addLoot}
+module.exports = {createUser,getUser,verifyUser,addToCollection,removeFromCollection,millFromCollection,removeLoot,addLoot,updateUser}

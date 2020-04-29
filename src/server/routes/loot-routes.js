@@ -5,6 +5,7 @@ const userDao = require('../db/user');
 const pokemonDao = require('../db/pokemon');
 const lootDao = require('../db/loot')
 
+
 //Should be open to everone
 router.get('/lootboxes',(req,res) => {
     res.json(lootDao.getAllLootBoxes());
@@ -24,13 +25,14 @@ router.get('/lootboxes/:name',(req,res) => {
     
 })
 
+//Buy lootbox
 router.post('/lootboxes/:name',(req,res) => {
     
     const boxName = req.params['name']
 
     if(req.user) {
         const user = userDao.getUser(req.user.username)
-        console.log(user)
+        
         const lootbox = lootDao.getLootBox(boxName)
         if(user && lootbox) {
             if(user.coins >= lootbox.cost) {
@@ -50,5 +52,7 @@ router.post('/lootboxes/:name',(req,res) => {
     res.status(401).send()
     return;
 })
+
+
 
 module.exports = router;

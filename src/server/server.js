@@ -7,10 +7,12 @@ const port = process.env.port || 8080;
 
 app.listen(port,() => {
     console.log('Server started on port: ' + port)
+    
+    //Set up pokeballs and pokemon
     loot.init()
     pokemon.init()
-    user.createUser("user","123")
-    const poke = pokemon.getPokemon("Pikachu")
-    user.addToCollection("user",poke)
-    user.addToCollection("user",poke)
+
+    //Create a example user
+    user.createUser("foo","bar")
+    
 });

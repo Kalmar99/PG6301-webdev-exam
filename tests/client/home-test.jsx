@@ -86,6 +86,4 @@ test('Test display pokemons using the actual backend',async () => {
     for(let i = 0; i < pokemons.length; i++) {
         expect(html).toMatch(pokemons[i].name)
     }
-
-
 })

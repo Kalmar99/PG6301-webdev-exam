@@ -30,6 +30,7 @@ router.post('/signup',function(req,res) {
     passport.authenticate('local')(req, res, () => {
         req.session.save((err) => {
             if (err) {
+                console.log(err)
                 res.status(500).send();
             } else {
                 res.status(201).send();
@@ -42,20 +43,34 @@ router.get('/user',(req,res) => {
     if(req.user) {
         res.json({
             username: req.user.username,
-            coins: req.user.coins
+            coins: req.user.coins,
+            loot: req.user.loot
         })
     }
     res.status(401).send()
 })
+
+
+router.put('/user',(req,res) => {
+    
+    if(req.user) {
+       
+        userDao.updateUser(req.user.username,req.user.password)
+        res.status(204).send()
+    }
+
+    res.status(401).send()
+}) 
 
 router.get('/user/:name/collection',async (req,res) => {
     
     const name = req.params['name']
 
     if(req.user) {
+        console.log("USER OK")
         //Make sure whoever sends the request owns that collection
         if(req.user.username === name) {
-        
+            console.log("USERNAME OK")
             const userObj = userDao.getUser(req.user.username)
             if(userObj) {
                 res.json({collection: userObj.collection })
@@ -98,7 +113,7 @@ router.post('/user/:name/lootboxes/:lootbox',(req,res) => {
     const lootbox = lootDao.getLootBox(req.params['lootbox']);
     let pokemon = lootbox.pokemon[Math.floor(Math.random() * lootbox.pokemon.length)]
     pokemon = pokemonDao.getPokemon(pokemon)
-    
+
     if(req.user) {
         if(req.user.username == user.username) {
         if(user && lootbox) {

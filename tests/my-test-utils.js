@@ -44,10 +44,56 @@ export function stubFetch(
 
 /*
     Override fetch() to make calls to the backend using SuperTest
- */
-export function overrideFetch(app){
 
-    const agent = request.agent(app);
+    Exam edit: I modefied this so i could choose the user agent.
+ */
+export function overrideFetch(app,authAgent){
+    
+    let agent;
+    if(app === null) {
+        agent = authAgent
+    } else {
+        agent = request.agent(app);
+    }
+
+    global.fetch = async (url, init) => {
+
+        let response;
+
+        if(!init || !init.method || init.method.toUpperCase() === "GET"){
+            response = await agent.get(url);
+        } else if(init.method.toUpperCase() === "POST"){
+            response = await agent.post(url)
+                .send(init.body)
+                .set('Content-Type', init.headers ? init.headers['Content-Type'] : "application/json");
+        } else if(init.method.toUpperCase() === "PUT"){
+            response = await agent.put(url)
+                .send(init.body)
+                .set('Content-Type', init.headers ? init.headers['Content-Type'] : "application/json");
+        } else if(init.method.toUpperCase() === "DELETE"){
+            response = await agent.delete(url);
+        } else {
+            throw "Unhandled HTTP method: " + init.method;
+        }
+
+        const payload = response.body;
+
+        return new Promise( (resolve, reject) => {
+
+            const httpResponse = {
+                status: response.statusCode,
+                json: () => {return new Promise(
+                    (res, rej) => {res(payload);}
+                )}
+            };
+
+            resolve(httpResponse);
+        });
+    };
+}
+
+export function overrideAuthFetch(agent){
+
 
     global.fetch = async (url, init) => {
 

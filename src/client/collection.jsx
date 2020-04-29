@@ -38,9 +38,9 @@ export class Collection extends React.Component {
     fetchUserLootboxes = async () => {
         let response;
         let payload;
-
+        console.log(this.props.username)
         try {
-            response = await fetch('/api/user/' + this.state.username +'/lootboxes')
+            response = await fetch('/api/user/' + this.props.username +'/lootboxes')
             payload = await response.json()
         } catch(error) {
             this.setState({error})
@@ -73,7 +73,7 @@ export class Collection extends React.Component {
         let payload;
 
         try {
-            response = await fetch('/api/user/' + this.state.username + '/collection');
+            response = await fetch('/api/user/' + this.props.username + '/collection');
             if(response.status == 200) {
                 payload = await response.json()
             }
@@ -89,7 +89,7 @@ export class Collection extends React.Component {
         }
 
         if(response.status !== 200) {
-            this.setState({error: 'Somethin went wrong, code: ' + response.status})
+            this.setState({error: 'Something went wrong, code: ' + response.status})
             return;
         }
 
@@ -182,7 +182,7 @@ export class Collection extends React.Component {
                     <Col className=" ml-1 mr-1 collection-header"><h3>Lootboxes</h3></Col>
                 </Row>
                 <Row className="mt-2">
-                    {this.state.loot.length >= 1 && this.state.loot.map((loot) => <Col lg={2}>
+                    {this.state.loot.length >= 1 && this.state.loot.map((loot) => <Col className="loot" lg={2}>
                         <Col><img className="img-fluid" src={loot.img}></img></Col>
                         <Col><b>{loot.count}x {loot.name}</b></Col>
                         <Col><button onClick={() => {this.openLootBox(loot.name)}}>Open</button></Col>
@@ -191,14 +191,14 @@ export class Collection extends React.Component {
                 <Row className="mt-3">
                     <Col className=" ml-1 mr-1 collection-header"><h3>Pokemon</h3></Col>
                 </Row>
-                <Row className="collection">
-                    {this.state.collection.length >= 1 && this.state.collection.map((pokemon) => <Col lg={2} key={pokemon.name}>
+                {this.state.collection.length >= 1 &&  <Row className="collection poke-collection">
+                    {this.state.collection.map((pokemon) => <Col className="collection-pokemon" lg={2} key={pokemon.name}>
                         <Col><img className="img-fluid" src={pokemon.img}></img></Col>
                         <Col className="text-center"><b>{pokemon.count}x {pokemon.name}</b></Col>
                         <Col lg={7} className={" mx-auto text-center type " + pokemon.type.toLowerCase()}>{pokemon.type}</Col>
                         <Col className="mt-1 text-center"><button className="w-75 mill-btn" onClick={() => this.millPokeMon(pokemon.name)}>Mill</button></Col>
                     </Col>)}
-                </Row>
+                </Row>}
             </Container>)
     }
 
