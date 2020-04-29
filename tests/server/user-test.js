@@ -178,7 +178,7 @@ test('Test reset user with put',async () => {
     lootDao.init()
 
     // Register and login
-    const username = 'TestUser'+(id++)
+    const username = 'Putuser'+(id++)
 
     const user = {
         username: username,
@@ -202,7 +202,7 @@ test('Test reset user with put',async () => {
     expect(response.statusCode).toBe(204)
 
     const pokemon = pokemonDao.getPokemon('Pikachu')
-    console.log(pokemon)
+    
     userDao.addToCollection(user.username,pokemon)
     userDao.millFromCollection(user.username,pokemon.name)
 

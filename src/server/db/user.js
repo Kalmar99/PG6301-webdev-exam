@@ -23,9 +23,12 @@ const createUser = (username,password) => {
         collection: []
     }
     user.loot.push(pokeball)
-  
-    return users.set(username,user)
 
+    if(getUser(username)) {
+        return false;
+    } 
+    
+    return users.set(username,user)
 }
 
 const getUser = (username) => {
@@ -46,6 +49,7 @@ const verifyUser = (username,password) => {
 
 const updateUser = (username,password) => {
     //Replacing the entire object
+    users.delete(username)
     createUser(username,password)
     const newUser = getUser(username)
     users.set(username,newUser);

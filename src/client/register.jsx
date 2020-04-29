@@ -79,12 +79,10 @@ export class Register extends React.Component {
                 <Row>
                     <Container className="mt-3">
                         <Row>
-                            <Col><h2>Register</h2></Col>
+                            <Col>{this.state.error && <Alert variant="warning">{this.state.error.toString()}</Alert>}</Col>
                         </Row>
-                        <Row className="">
-                            {this.state.error != null && <Col>
-                                <Alert variant="danger">{this.state.error.toString()}</Alert>
-                            </Col>}
+                        <Row>
+                            <Col><h2>Register</h2></Col>
                         </Row>
                         <Row className="mt-2">
                             <Col><input onChange={this.onUsernameChange} placeholder="Username" /></Col>

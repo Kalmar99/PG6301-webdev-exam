@@ -64,10 +64,9 @@ source code for the app is in src, static files in public and tests in test\
 - 3 Different Loot boxes with different loot tables 
 
 ### Test coverage
-% Stmts: 61.78\
+% Stmts: 61.98\
 % Funcs: 66\
-% Lines: 61.53
-
+% Lines: 61.72
 
 ### Notes
 There is already a user account created when the server starts username: `Foo` and password: `bar` but you can also create a user from the front-end.

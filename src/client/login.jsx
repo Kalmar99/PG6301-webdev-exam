@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {Header} from './header'
 import {Link} from 'react-router-dom'
+import Alert from 'react-bootstrap/Alert'
 
 export class Login extends React.Component {
     constructor(props) {
@@ -67,6 +68,9 @@ export class Login extends React.Component {
                 </Row>
                 <Row>
                     <Container className="mt-3">
+                        <Row>
+                            <Col>{this.state.error && <Alert variant="warning">{this.state.error.toString()}</Alert>}</Col>
+                        </Row>
                         <Row>
                             <Col><h2>Log in</h2></Col>
                         </Row>

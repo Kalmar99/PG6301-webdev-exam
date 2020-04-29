@@ -59,7 +59,7 @@ test('Test get another users collection while being logged in',async () => {
     const agent = request.agent(app)
     
     const otherUser = {
-        username: 'dontstealmydata',
+        username: 'dontstealmydataplz',
         password: '404'
     }
     
@@ -286,13 +286,13 @@ test('Test opening another players lootbox',async () => {
     const agent = request.agent(app)
     
     const otherUser = {
-        username: 'dontmillmydata',
+        username: 'thiefy',
         password: '404'
     }
     
     
     const user = {
-        username: 'FooSecurity404',
+        username: 'thiefvictim',
         password: 'BarPassword'
     }
 
