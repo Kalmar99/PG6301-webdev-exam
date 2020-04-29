@@ -63,7 +63,6 @@ export class Header extends React.Component {
         }
         
         this.setState({user: payload,error: null})
-        console.log("USER: " + payload.username)
         this.props.setLoginStatus(payload.username)
         return;
     }

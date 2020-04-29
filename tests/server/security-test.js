@@ -15,6 +15,16 @@ test('Test buy lootbox when not logged in',async () => {
     
 })
 
+test ('Test buy lootbox while not being logged in',async () => {
+    loot.init()
+
+    const response = await request(app)
+        .post('/api/lootboxes/Pokeball')
+    
+    expect(response.statusCode).toBe(401)
+
+})
+
 /*   user-routes    */
 
 test('Test get user data while not logged in',async () => {
@@ -142,7 +152,6 @@ test('Get antoher users lootboxes while being logged in',async () => {
     response = await agent 
         .get('/api/user/'+otherUser.username+'/lootboxes')
     
-    console.log(response.body)
     expect(response.statusCode).toBe(401)
 
 })
@@ -158,7 +167,7 @@ test('Test Buy lootbox without being logged in',async () => {
     expect(response.statusCode).toBe(401)
 })
 
-test('Test Buy a lootbox for another user',async () => {
+test('Test open a lootbox that belongs to another user',async () => {
 
     pokemon.init()
     loot.init()
@@ -204,7 +213,7 @@ test('Test Buy a lootbox for another user',async () => {
         .post('/api/user/' + otherUser.username + '/lootboxes/Pokeball')
     
     
-    expect(response.statusCode).toBe(401)
+    expect(response.statusCode).toBe(403)
 })
 
 
@@ -267,6 +276,7 @@ test('Test delete/mill other users pokemon while being logged in',async () => {
     expect(response.statusCode).toBe(403)
 
 })
+
 
 
 

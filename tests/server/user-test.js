@@ -161,7 +161,6 @@ test('Test adding pokemon to user collection',async () => {
         .get('/api/user/' + user.username + '/collection')
 
     expect(response.statusCode).toBe(200)
-    console.log(response.body)
     expect(response.body.collection).toHaveLength(1)
     expect(response.body.collection[0]).not.toBe(null)
 

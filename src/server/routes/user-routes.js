@@ -67,10 +67,10 @@ router.get('/user/:name/collection',async (req,res) => {
     const name = req.params['name']
 
     if(req.user) {
-        console.log("USER OK")
+        
         //Make sure whoever sends the request owns that collection
         if(req.user.username === name) {
-            console.log("USERNAME OK")
+            
             const userObj = userDao.getUser(req.user.username)
             if(userObj) {
                 res.json({collection: userObj.collection })
@@ -137,7 +137,8 @@ router.post('/user/:name/lootboxes/:lootbox',(req,res) => {
             return;
         }
     }
-    res.status(401).send()
+    //The loot box does not belong to the player making the request
+    res.status(403).send()
     return;
     }
     res.status(401).send()

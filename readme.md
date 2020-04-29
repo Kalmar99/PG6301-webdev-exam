@@ -40,6 +40,7 @@ You can then buy lootboxes and get different kinds of pokemon based of what loot
 
 ### Notes
 There is already a user account created when the server starts username: `Foo` and password: `bar` but you can also create a user from the front-end
+
 At user-routes.js Line: 153 there is a delete endpoint. I am not sure if that should be a delete. If the user has only 1 pokemon of x type in their collection it will delete it. However if the user has more than 1 pokemon of x type in their collection, the count on that object would just be subtracted. I chose to go with delete as you are essentialy deleting one of the x type in your collection. If thats wrong, at least know that i thought about it.
 
 Some of the code in the tests folder are either copied or based of the code from the course git repo. In every that has copied code there is a note at the top spesifying where it was copied from and to what extent.

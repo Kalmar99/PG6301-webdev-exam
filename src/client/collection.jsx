@@ -38,7 +38,7 @@ export class Collection extends React.Component {
     fetchUserLootboxes = async () => {
         let response;
         let payload;
-        console.log(this.props.username)
+        
         try {
             response = await fetch('/api/user/' + this.props.username +'/lootboxes')
             payload = await response.json()
@@ -182,7 +182,7 @@ export class Collection extends React.Component {
                     <Col className=" ml-1 mr-1 collection-header"><h3>Lootboxes</h3></Col>
                 </Row>
                 <Row className="mt-2">
-                    {this.state.loot.length >= 1 && this.state.loot.map((loot) => <Col className="loot" lg={2}>
+                    {this.state.loot.length >= 1 && this.state.loot.map((loot) => <Col key={loot.name} className="loot" lg={2}>
                         <Col><img className="img-fluid" src={loot.img}></img></Col>
                         <Col><b>{loot.count}x {loot.name}</b></Col>
                         <Col><button onClick={() => {this.openLootBox(loot.name)}}>Open</button></Col>
